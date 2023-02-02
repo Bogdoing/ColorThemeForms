@@ -34,15 +34,19 @@
             // 
             // tb
             // 
+            this.tb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tb.Location = new System.Drawing.Point(12, 12);
             this.tb.Multiline = true;
             this.tb.Name = "tb";
-            this.tb.Size = new System.Drawing.Size(776, 369);
+            this.tb.Size = new System.Drawing.Size(482, 238);
             this.tb.TabIndex = 0;
             // 
             // btn
             // 
-            this.btn.Location = new System.Drawing.Point(671, 387);
+            this.btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn.Location = new System.Drawing.Point(377, 256);
             this.btn.Name = "btn";
             this.btn.Size = new System.Drawing.Size(117, 51);
             this.btn.TabIndex = 1;
@@ -54,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(506, 319);
             this.Controls.Add(this.btn);
             this.Controls.Add(this.tb);
             this.Name = "Form1";

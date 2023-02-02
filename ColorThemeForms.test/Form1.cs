@@ -78,6 +78,17 @@ namespace ColorThemeForms.test
 
             tb.Text += DateTime.Parse(currentDateTime) + "  " + DateTime.Parse("18:00:00");
 
+
+            RegistryKey myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
+            if (myKey != null)
+            {
+                myKey.SetValue("AppsUseLightTheme", "1", RegistryValueKind.DWord);
+                myKey.Close();
+            }
+            else
+            {
+                tb.Text += "\r\n myKey = null";
+            }
         }
     }
 }
