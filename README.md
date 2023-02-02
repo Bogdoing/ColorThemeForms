@@ -1,3 +1,3 @@
 # ColorThemeForms.test
 
-Adding a dynamic system theme change feature to Windows. As on mobile devices
+Adding a dynamic (depending on the time on the device) change of the system theme to Windows. As on mobile devices
