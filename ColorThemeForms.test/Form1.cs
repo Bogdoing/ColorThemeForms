@@ -80,15 +80,25 @@ namespace ColorThemeForms.test
 
 
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
-            if (myKey != null)
+            //tb.Text += "\r\n myKey AppsUseLightTheme Value: " + myKey.GetValue("AppsUseLightTheme").ToString();
+            if (myKey.GetValue("AppsUseLightTheme").ToString() == "0")
             {
                 myKey.SetValue("AppsUseLightTheme", "1", RegistryValueKind.DWord);
+                myKey.SetValue("SystemUsesLightTheme", "1", RegistryValueKind.DWord);
+                myKey.Close();
+            }
+            else
+            if (myKey.GetValue("AppsUseLightTheme").ToString() == "1")
+            {
+                myKey.SetValue("AppsUseLightTheme", "0", RegistryValueKind.DWord);
+                myKey.SetValue("SystemUsesLightTheme", "0", RegistryValueKind.DWord);
                 myKey.Close();
             }
             else
             {
                 tb.Text += "\r\n myKey = null";
             }
+            
         }
     }
 }
