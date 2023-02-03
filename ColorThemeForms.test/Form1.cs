@@ -12,6 +12,8 @@ namespace ColorThemeForms.test
         public Form1()
         {
             InitializeComponent();
+            getTime();
+            swithColorThemeForTime();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,8 +43,8 @@ namespace ColorThemeForms.test
             //int Ant = Convert.ToInt32(personalize.GetValue("AnotherName"));           
 
             // Покажем содержимое, чтобы убедиться в том, что чтение прошло успешно.
-            tb.Text += "AppsUseLightTheme: " + AppsUseLightTheme + "\r\n" 
-                     + "SystemUsesLightTheme: " + SystemUsesLightTheme + "\r\n";
+            //tb.Text += "AppsUseLightTheme: " + AppsUseLightTheme + "\r\n" 
+            //         + "SystemUsesLightTheme: " + SystemUsesLightTheme + "\r\n";
 
 
             closeAllRegistry(myKey, software, microsoft, windows, currentVersion, themes, personalize);
@@ -68,30 +70,21 @@ namespace ColorThemeForms.test
 
         private void swithColorTheme()
         {
-            int result = DateTime.Compare(DateTime.Parse(currentDateTime), DateTime.Parse("18:00:00"));
-            if (result < 0)
-                tb.Text += "< 0 - раньше";
-            else if (result == 0)
-                tb.Text += "==";
-            else
-                tb.Text += "else - позже";
-
-            tb.Text += DateTime.Parse(currentDateTime) + "  " + DateTime.Parse("18:00:00");
-
-
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
             //tb.Text += "\r\n myKey AppsUseLightTheme Value: " + myKey.GetValue("AppsUseLightTheme").ToString();
             if (myKey.GetValue("AppsUseLightTheme").ToString() == "0")
             {
                 myKey.SetValue("AppsUseLightTheme", "1", RegistryValueKind.DWord);
                 myKey.SetValue("SystemUsesLightTheme", "1", RegistryValueKind.DWord);
-                myKey.Close();
+                tb.Text += "switch to light \r\n";
+                myKey.Close();                
             }
             else
             if (myKey.GetValue("AppsUseLightTheme").ToString() == "1")
             {
                 myKey.SetValue("AppsUseLightTheme", "0", RegistryValueKind.DWord);
                 myKey.SetValue("SystemUsesLightTheme", "0", RegistryValueKind.DWord);
+                tb.Text += "switch to dark \r\n";
                 myKey.Close();
             }
             else
@@ -99,6 +92,32 @@ namespace ColorThemeForms.test
                 tb.Text += "\r\n myKey = null";
             }
             
+        }
+
+        private void swithColorThemeForTime()
+        {
+            RegistryKey myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
+            int result = DateTime.Compare(DateTime.Parse(currentDateTime), DateTime.Parse("18:00:00"));
+            if (result < 0)
+            {
+                //tb.Text += "< 0 - раньше";
+                myKey.SetValue("AppsUseLightTheme", "1", RegistryValueKind.DWord);
+                myKey.SetValue("SystemUsesLightTheme", "1", RegistryValueKind.DWord);
+                tb.Text += "switch to light \r\n";
+                myKey.Close();
+            }                
+            else if (result > 0) 
+            {
+                //tb.Text += "else - позже";
+                myKey.SetValue("AppsUseLightTheme", "0", RegistryValueKind.DWord);
+                myKey.SetValue("SystemUsesLightTheme", "0", RegistryValueKind.DWord);
+                tb.Text += "switch to dark \r\n";
+                myKey.Close();
+            }
+            else
+                tb.Text += "==";            
+
+            //tb.Text += DateTime.Parse(currentDateTime) + "  " + DateTime.Parse("18:00:00");
         }
     }
 }
