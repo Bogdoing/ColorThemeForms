@@ -16,6 +16,11 @@ namespace ColorThemeForms.test
             swithColorThemeForTime();
         }
 
+        private void clearTextBox()
+        {
+            tb.Text = string.Empty;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             getTime();
@@ -70,14 +75,16 @@ namespace ColorThemeForms.test
 
         private void swithColorTheme()
         {
-            RegistryKey myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
+            clearTextBox();
+
+            RegistryKey? myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
             //tb.Text += "\r\n myKey AppsUseLightTheme Value: " + myKey.GetValue("AppsUseLightTheme").ToString();
             if (myKey.GetValue("AppsUseLightTheme").ToString() == "0")
             {
                 myKey.SetValue("AppsUseLightTheme", "1", RegistryValueKind.DWord);
-                myKey.SetValue("SystemUsesLightTheme", "1", RegistryValueKind.DWord);
+                myKey.SetValue("SystemUsesLightTheme", "0", RegistryValueKind.DWord);
                 tb.Text += "switch to light \r\n";
-                myKey.Close();                
+                myKey.Close();
             }
             else
             if (myKey.GetValue("AppsUseLightTheme").ToString() == "1")
@@ -91,22 +98,24 @@ namespace ColorThemeForms.test
             {
                 tb.Text += "\r\n myKey = null";
             }
-            
+
         }
 
         private void swithColorThemeForTime()
         {
-            RegistryKey myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
+            clearTextBox();
+
+            RegistryKey? myKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
             int result = DateTime.Compare(DateTime.Parse(currentDateTime), DateTime.Parse("18:00:00"));
             if (result < 0)
             {
                 //tb.Text += "< 0 - раньше";
                 myKey.SetValue("AppsUseLightTheme", "1", RegistryValueKind.DWord);
-                myKey.SetValue("SystemUsesLightTheme", "1", RegistryValueKind.DWord);
+                myKey.SetValue("SystemUsesLightTheme", "0", RegistryValueKind.DWord);
                 tb.Text += "switch to light \r\n";
                 myKey.Close();
-            }                
-            else if (result > 0) 
+            }
+            else if (result > 0)
             {
                 //tb.Text += "else - позже";
                 myKey.SetValue("AppsUseLightTheme", "0", RegistryValueKind.DWord);
@@ -115,9 +124,44 @@ namespace ColorThemeForms.test
                 myKey.Close();
             }
             else
-                tb.Text += "==";            
+                tb.Text += "==";
 
             //tb.Text += DateTime.Parse(currentDateTime) + "  " + DateTime.Parse("18:00:00");
+        }
+
+        private void onLiteTheme(object sender, EventArgs e)
+        {
+            clearTextBox();
+
+            Theme.onLight();
+
+            tb.Text += "switch to light \r\n";
+
+        }
+
+        private void onDarkTheme(object sender, EventArgs e)
+        {
+            clearTextBox();
+
+            Theme.onDark();
+
+            tb.Text += "switch to dark \r\n";
+
+        }
+
+        private void onPerformans(object sender, EventArgs e)
+        {
+            Energy.onHighPerformance();
+        }
+
+        private void onSaving(object sender, EventArgs e)
+        {
+            Energy.onLowPerformance();
+        }
+
+        private void onBalans(object sender, EventArgs e)
+        {
+            Energy.onAmdBalans();
         }
     }
 }
