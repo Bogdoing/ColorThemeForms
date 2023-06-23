@@ -13,7 +13,7 @@ namespace ColorThemeForms.test
         {
             InitializeComponent();
             getTime();
-            swithColorThemeForTime();
+            //swithColorThemeForTime();
         }
 
         private void clearTextBox()

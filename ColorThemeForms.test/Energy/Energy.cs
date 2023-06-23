@@ -26,7 +26,8 @@ namespace ColorThemeForms.test
 
         public static void onAmdBalans()
         {
-            Guid PowerSaver = new Guid("9897998c-92de-4669-853f-b7cd3ecb2790");
+            Guid PowerSaver = new Guid("381b4222-f694-41f0-9685-ff5bb260df2e");
+            //Guid PowerSaver = new Guid("9897998c-92de-4669-853f-b7cd3ecb2790");
             PowerSetActiveScheme(IntPtr.Zero, ref PowerSaver);
         }
     }
